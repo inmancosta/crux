@@ -19,6 +19,7 @@
 		4DD35D9A2CBE223B00E89775 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35D992CBE223B00E89775 /* AuthenticationManager.swift */; };
 		4DD35D9C2CBE477100E89775 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35D9B2CBE477100E89775 /* RootView.swift */; };
 		4DD35D9E2CBE4AFB00E89775 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35D9D2CBE4AFB00E89775 /* SettingsView.swift */; };
+		4DD35DA12CBF85AB00E89775 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD35DA02CBF85AB00E89775 /* FirebaseAnalyticsSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD35DA12CBF85AB00E89775 /* FirebaseAnalyticsSwift in Frameworks */,
 				4DD35D902CBE1B2800E89775 /* FirebaseAnalytics in Frameworks */,
 				4DD35D932CBE1D5300E89775 /* FirebaseAuth in Frameworks */,
 			);
@@ -124,6 +126,7 @@
 			packageProductDependencies = (
 				4DD35D8F2CBE1B2800E89775 /* FirebaseAnalytics */,
 				4DD35D922CBE1D5300E89775 /* FirebaseAuth */,
+				4DD35DA02CBF85AB00E89775 /* FirebaseAnalyticsSwift */,
 			);
 			productName = crux;
 			productReference = 4DD35D7B2CBE16C700E89775 /* crux.app */;
@@ -415,6 +418,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4DD35D8E2CBE1B2800E89775 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		4DD35DA02CBF85AB00E89775 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DD35D8E2CBE1B2800E89775 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
