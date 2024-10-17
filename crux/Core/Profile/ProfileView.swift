@@ -24,8 +24,13 @@ struct ProfileView: View {
             }
         }
         .task {
-            try? await viewModel.loadCurrentUser()
+            do {
+                try await viewModel.loadCurrentUser()
+            } catch {
+                print("Failed to load user: \(error)")
+            }
         }
+
         .navigationTitle("Profile")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
