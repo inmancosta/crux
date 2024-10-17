@@ -24,6 +24,7 @@
 		4DD35DA52CC0A6A800E89775 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD35DA42CC0A6A800E89775 /* FirebaseFirestoreSwift */; };
 		4DD35DA92CC0A7D900E89775 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35DA82CC0A7D900E89775 /* ProfileView.swift */; };
 		4DD35DAC2CC0AE9E00E89775 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35DAB2CC0AE9E00E89775 /* UserManager.swift */; };
+		4DD35DAE2CC0BF0E00E89775 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35DAD2CC0BF0E00E89775 /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		4DD35D9D2CBE4AFB00E89775 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4DD35DA82CC0A7D900E89775 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4DD35DAB2CC0AE9E00E89775 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		4DD35DAD2CC0BF0E00E89775 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				4DD35D9D2CBE4AFB00E89775 /* SettingsView.swift */,
 				4DD35D952CBE1E5400E89775 /* AuthenticationView.swift */,
 				4DD35D972CBE1FA000E89775 /* SignInEmailView.swift */,
+				4DD35DAD2CC0BF0E00E89775 /* OnboardingView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				4DD35DAC2CC0AE9E00E89775 /* UserManager.swift in Sources */,
 				4DD35DA92CC0A7D900E89775 /* ProfileView.swift in Sources */,
 				4DD35D9E2CBE4AFB00E89775 /* SettingsView.swift in Sources */,
+				4DD35DAE2CC0BF0E00E89775 /* OnboardingView.swift in Sources */,
 				4DD35D812CBE16C700E89775 /* ContentView.swift in Sources */,
 				4DD35D7F2CBE16C700E89775 /* cruxApp.swift in Sources */,
 				4DD35D9C2CBE477100E89775 /* RootView.swift in Sources */,

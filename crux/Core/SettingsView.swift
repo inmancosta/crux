@@ -34,6 +34,7 @@ final class SettingsViewModel: ObservableObject {
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @Binding var showSignInView: Bool
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         List {
@@ -42,6 +43,7 @@ struct SettingsView: View {
                     do {
                         try viewModel.signOut()
                         showSignInView = true
+                        dismiss()
                     } catch {
                         print(error)
                     }
