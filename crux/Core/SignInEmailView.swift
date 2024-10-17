@@ -103,7 +103,7 @@ struct SignInEmailView: View {
             Spacer()
         }
         .padding(20)
-        .navigationTitle(isSignUp ? "Sign Up With Email" : "Sign In With Email")
+        
     }
 }
 
