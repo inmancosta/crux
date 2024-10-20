@@ -4,7 +4,7 @@ import FirebaseFirestoreSwift
 
 struct DBUser {
     let userId: String
-    let email: String?
+    let email: String
     let photoUrl: String?
     let dateCreated: Date?
 let     isOnboarded: Bool
@@ -46,7 +46,8 @@ final class UserManager {
             throw URLError(.badServerResponse)
         }
 
-        let email = data["email"] as? String
+        let email = data["email"] as? String ?? "" // Provide a default value if nil
+
         let photoUrl = data["photo_url"] as? String
         let dateCreated = data["date_created"] as? Date
         let isOnboarded = data["isOnboarded"] as? Bool ?? false // Provide a default value if nil

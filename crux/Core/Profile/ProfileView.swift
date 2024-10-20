@@ -34,6 +34,11 @@ struct ProfileView: View {
                 List {
                     if let user = viewModel.user {
                         Text("UserID: \(user.userId) ")
+                        
+                    }
+                    if let user = viewModel.user {
+                        Text("Email: \(user.email) ")
+                        
                     }
                 }
                 .task {
