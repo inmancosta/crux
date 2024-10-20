@@ -7,6 +7,7 @@ struct DBUser {
     let email: String?
     let photoUrl: String?
     let dateCreated: Date?
+let     isOnboarded: Bool
 }
 
 final class UserManager {
@@ -48,15 +49,28 @@ final class UserManager {
         let email = data["email"] as? String
         let photoUrl = data["photo_url"] as? String
         let dateCreated = data["date_created"] as? Date
+        let isOnboarded = data["isOnboarded"] as? Bool ?? false // Provide a default value if nil
+
 
         return DBUser(
             userId: userId,
             email: email,
             photoUrl: photoUrl,
-            dateCreated: dateCreated
+            dateCreated: dateCreated,
+            isOnboarded: isOnboarded
         )
     }
 
+    func updateUserDetails(userId: String, name: String, githubUsername: String, schoolGradYear: String, preferences: [String]) async throws {
+            let userRef = Firestore.firestore().collection("users").document(userId)
+            try await userRef.updateData([
+                "name": name,
+                "githubUsername": githubUsername,
+                "schoolGradYear": schoolGradYear,
+                "preferences": preferences,
+                "isOnboarded": true
+            ])
+        }
 
     
 }

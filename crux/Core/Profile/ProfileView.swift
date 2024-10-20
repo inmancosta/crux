@@ -6,39 +6,53 @@ import SwiftUI
 final class ProfileViewModel: ObservableObject {
     
     @Published private(set) var user: DBUser? = nil
-
-    func loadCurrentUser() async throws{
+    @Published var showOnboarding = false // Track whether to show onboarding
+    
+    func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        self.user  = try await UserManager.shared.getUser(userId: authDataResult.uid)
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+        
+        // Check if user has completed onboarding
+        if let user = self.user, !user.isOnboarded {
+            self.showOnboarding = true // If not onboarded, show onboarding view
+        }
     }
 }
+
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
-
+    
     var body: some View {
-        List {
-            if let user = viewModel.user{
-                Text("UserID: \(user.userId) ")
-            }
-        }
-        .task {
-            do {
-                try await viewModel.loadCurrentUser()
-            } catch {
-                print("Failed to load user: \(error)")
-            }
-        }
-
-        .navigationTitle("Profile")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    SettingsView(showSignInView: $showSignInView)
-                } label: {
-                    Image(systemName: "gear")
-                        .font(.headline)
+        VStack {
+            if viewModel.showOnboarding {
+                // Show onboarding view if user hasn't completed onboarding
+                OnboardingView(showOnboarding: $viewModel.showOnboarding, userId: viewModel.user?.userId ?? "")
+            } else {
+                // Show profile information after onboarding is complete
+                List {
+                    if let user = viewModel.user {
+                        Text("UserID: \(user.userId) ")
+                    }
+                }
+                .task {
+                    do {
+                        try await viewModel.loadCurrentUser()
+                    } catch {
+                        print("Failed to load user: \(error)")
+                    }
+                }
+                .navigationTitle("Profile")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink {
+                            SettingsView(showSignInView: $showSignInView)
+                        } label: {
+                            Image(systemName: "gear")
+                                .font(.headline)
+                        }
+                    }
                 }
             }
         }
@@ -50,49 +64,6 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView(showSignInView: .constant(false))
     }
 }
-//
-//import SwiftUI
-//
-//@MainActor
-//final class ProfileViewModel: ObservableObject {
-//    
-//    @Published private(set) var user: AuthDataResultModel? = nil
-//
-//    func loadCurrentUser() throws {
-//        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-//        self.user = authDataResult // Set the user here
-//    }
-//}
-//
-//struct ProfileView: View {
-//    @StateObject private var viewModel = ProfileViewModel()
-//    @Binding var showSignInView: Bool
-//
-//    var body: some View {
-//        List {
-//            if let user = viewModel.user {
-//                Text("UserID: \(user.uid)")
-//            }
-//        }
-//        .onAppear {
-//            try? viewModel.loadCurrentUser() // Try loading the current user
-//        }
-//        .navigationTitle("Profile")
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                NavigationLink {
-//                    SettingsView(showSignInView: $showSignInView)
-//                } label: {
-//                    Image(systemName: "gear")
-//                        .font(.headline)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//struct ProfileView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfileView(showSignInView: .constant(false))
-//    }
-//}
+
+
+
