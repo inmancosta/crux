@@ -33,6 +33,10 @@ struct ProfileView: View {
                 // Show profile information after onboarding is complete
                 List {
                     if let user = viewModel.user {
+                        Text("NAME: \(user.name) ")
+                        
+                    }
+                    if let user = viewModel.user {
                         Text("UserID: \(user.userId) ")
                         
                     }
@@ -40,6 +44,11 @@ struct ProfileView: View {
                         Text("Email: \(user.email) ")
                         
                     }
+                    if let user = viewModel.user {
+                        Text("Github: \(user.githubUsername ?? "Not available")")
+                    }
+
+                    
                 }
                 .task {
                     do {
