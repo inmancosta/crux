@@ -25,6 +25,12 @@
 		4DD35DA92CC0A7D900E89775 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35DA82CC0A7D900E89775 /* ProfileView.swift */; };
 		4DD35DAC2CC0AE9E00E89775 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35DAB2CC0AE9E00E89775 /* UserManager.swift */; };
 		4DD35DAE2CC0BF0E00E89775 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35DAD2CC0BF0E00E89775 /* OnboardingView.swift */; };
+		4DF2FFC22CC700F600C15C1A /* ProjectCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFC12CC700F600C15C1A /* ProjectCardView.swift */; };
+		4DF2FFC42CC7011600C15C1A /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFC32CC7011600C15C1A /* ProjectDetailView.swift */; };
+		4DF2FFC72CC7015400C15C1A /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFC62CC7015400C15C1A /* Project.swift */; };
+		4DF2FFC92CC7024000C15C1A /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFC82CC7024000C15C1A /* ProjectManager.swift */; };
+		4DF2FFCB2CC702D000C15C1A /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFCA2CC702D000C15C1A /* ProjectViewModel.swift */; };
+		4DF2FFCD2CC702EC00C15C1A /* UploadProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFCC2CC702EC00C15C1A /* UploadProjectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +48,12 @@
 		4DD35DA82CC0A7D900E89775 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4DD35DAB2CC0AE9E00E89775 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		4DD35DAD2CC0BF0E00E89775 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4DF2FFC12CC700F600C15C1A /* ProjectCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCardView.swift; sourceTree = "<group>"; };
+		4DF2FFC32CC7011600C15C1A /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
+		4DF2FFC62CC7015400C15C1A /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		4DF2FFC82CC7024000C15C1A /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
+		4DF2FFCA2CC702D000C15C1A /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
+		4DF2FFCC2CC702EC00C15C1A /* UploadProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProjectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +96,7 @@
 				4DD35D802CBE16C700E89775 /* ContentView.swift */,
 				4DD35DA62CC0A72700E89775 /* Core */,
 				4DD35D942CBE1E4000E89775 /* Authentication */,
+				4DF2FFC52CC7014300C15C1A /* Project */,
 				4DD35DAA2CC0AE8C00E89775 /* FireStore */,
 				4DD35D822CBE16C800E89775 /* Assets.xcassets */,
 				4DD35D8C2CBE197700E89775 /* GoogleService-Info.plist */,
@@ -142,6 +155,19 @@
 				4DD35DAB2CC0AE9E00E89775 /* UserManager.swift */,
 			);
 			path = FireStore;
+			sourceTree = "<group>";
+		};
+		4DF2FFC52CC7014300C15C1A /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				4DF2FFC32CC7011600C15C1A /* ProjectDetailView.swift */,
+				4DF2FFC12CC700F600C15C1A /* ProjectCardView.swift */,
+				4DF2FFC62CC7015400C15C1A /* Project.swift */,
+				4DF2FFC82CC7024000C15C1A /* ProjectManager.swift */,
+				4DF2FFCA2CC702D000C15C1A /* ProjectViewModel.swift */,
+				4DF2FFCC2CC702EC00C15C1A /* UploadProjectView.swift */,
+			);
+			path = Project;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,11 +256,17 @@
 				4DD35D9E2CBE4AFB00E89775 /* SettingsView.swift in Sources */,
 				4DD35DAE2CC0BF0E00E89775 /* OnboardingView.swift in Sources */,
 				4DD35D812CBE16C700E89775 /* ContentView.swift in Sources */,
+				4DF2FFC92CC7024000C15C1A /* ProjectManager.swift in Sources */,
+				4DF2FFC72CC7015400C15C1A /* Project.swift in Sources */,
 				4DD35D7F2CBE16C700E89775 /* cruxApp.swift in Sources */,
 				4DD35D9C2CBE477100E89775 /* RootView.swift in Sources */,
+				4DF2FFCD2CC702EC00C15C1A /* UploadProjectView.swift in Sources */,
 				4DD35D962CBE1E5400E89775 /* AuthenticationView.swift in Sources */,
+				4DF2FFC22CC700F600C15C1A /* ProjectCardView.swift in Sources */,
 				4DD35D9A2CBE223B00E89775 /* AuthenticationManager.swift in Sources */,
 				4DD35D982CBE1FA000E89775 /* SignInEmailView.swift in Sources */,
+				4DF2FFC42CC7011600C15C1A /* ProjectDetailView.swift in Sources */,
+				4DF2FFCB2CC702D000C15C1A /* ProjectViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

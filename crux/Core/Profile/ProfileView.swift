@@ -35,79 +35,79 @@ final class ProfileViewModel: ObservableObject {
 }
 
 
+import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
-    @Binding var showSignInView: Bool
+@Binding var showSignInView: Bool
+    @State private var isShowingCreateProjectView = false // Track whether the upload project view is shown
     
     var body: some View {
-        VStack {
-            if viewModel.isLoading {
-                ProgressView("Loading user data...")
-            } else if viewModel.showOnboarding {
-                OnboardingView(showOnboarding: $viewModel.showOnboarding, userId: viewModel.user?.userId ?? "")
-            } else {
-                List {
-                    if let user = viewModel.user {
-                        Text("NAME: \(user.name)")
+        NavigationView { // Wrap the entire view in NavigationView
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading user data...")
+                } else if viewModel.showOnboarding {
+                    OnboardingView(showOnboarding: $viewModel.showOnboarding, userId: viewModel.user?.userId ?? "")
+                } else {
+                    List {
+                        if let user = viewModel.user {
+                            Text("NAME: \(user.name)")
+                        }
+                        if let user = viewModel.user {
+                            Text("Email: \(user.schoolGradYear)")
+                        }
+                        
+                        if let user = viewModel.user {
+                            Text("Email: \(user.email)")
+                        }
+                        if let user = viewModel.user {
+                            Text("Github: \(user.githubUsername ?? "Not available")")
+                        }
+                        if let user = viewModel.user {
+                            Text("PREFS: \(user.preferences)")
+                        }
                     }
-                    if let user = viewModel.user {
-                        Text("Email: \(user.schoolGradYear)")
+                    .refreshable {
+                        do {
+                            try await viewModel.loadCurrentUser()
+                        } catch {
+                            print("Failed to refresh user: \(error)")
+                        }
                     }
-                    
-                    if let user = viewModel.user {
-                        Text("Email: \(user.email)")
-                    }
-                    if let user = viewModel.user {
-                        Text("Github: \(user.githubUsername ?? "Not available")")
-                    }
-                    if let user = viewModel.user {
-                        Text("PREFS: \(user.preferences)")
-                    }
-                    
-                }
-                .refreshable {
-                    do {
-                        try await viewModel.loadCurrentUser()
-                    } catch {
-                        print("Failed to refresh user: \(error)")
-                    }
-                }
-                .navigationTitle("Profile")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            do {
-                                try viewModel.signOut()
-                                showSignInView = true // Redirect to sign-in after sign-out
-                            } catch {
-                                print("Failed to sign out: \(error)")
+                    .navigationTitle("Profile")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            // Change gear button to navigate to SettingsView
+                            NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
+                                Image(systemName: "gear")
+                                    .font(.headline)
                             }
-                        } label: {
-                            Image(systemName: "gear")
-                                .font(.headline)
+                        }
+                        
+                        // Post Project button in toolbar
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            NavigationLink(destination: CreateProjectView()) {
+                                Image(systemName: "plus")
+                                    .font(.headline)
+                            }
                         }
                     }
                 }
             }
-        }
-        .task {
-            do {
-                try await viewModel.loadCurrentUser()
-            } catch {
-                print("Failed to load user: \(error)")
+            .task {
+                do {
+                    try await viewModel.loadCurrentUser()
+                } catch {
+                    print("Failed to load user: \(error)")
+                }
             }
         }
     }
 }
-
-
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView(showSignInView: .constant(false))
     }
 }
-
-
-
