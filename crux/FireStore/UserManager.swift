@@ -11,6 +11,7 @@ struct DBUser {
     let githubUsername: String? // Removed the extra comma
     let name: String
     let schoolGradYear: String
+    let preferences: [String]
 }
 
 final class UserManager {
@@ -52,11 +53,13 @@ final class UserManager {
         let email = data["email"] as? String ?? "" // Provide a default value if nil
 
         let photoUrl = data["photo_url"] as? String
-        let githubUsername = data["githubUserName"] as? String
+        let githubUsername = data["githubUsername"] as? String
         let name = data["name"] as? String
         let schoolGradYear = data["schoolGradYear"] as? String
         let dateCreated = data["date_created"] as? Date
         let isOnboarded = data["isOnboarded"] as? Bool ?? false // Provide a default value if nil
+        let preferences = data["preferences"] as? [String] ?? [] // Provide a default empty array if nil
+
         
 
 
@@ -68,7 +71,8 @@ final class UserManager {
             isOnboarded: isOnboarded,
             githubUsername: githubUsername, // Already an optional, no need to unwrap
             name: name ?? "", // Unwrap with a default value
-            schoolGradYear: schoolGradYear ?? "" // Unwrap with a default value
+            schoolGradYear: schoolGradYear ?? "" ,// Unwrap with a default value,
+            preferences: preferences
         )
 
 
