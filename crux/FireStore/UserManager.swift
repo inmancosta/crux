@@ -78,16 +78,23 @@ final class UserManager {
 
     }
 
-    func updateUserDetails(userId: String, name: String, githubUsername: String, schoolGradYear: String, preferences: [String]) async throws {
-            let userRef = Firestore.firestore().collection("users").document(userId)
-            try await userRef.updateData([
-                "name": name,
-                "githubUsername": githubUsername,
-                "schoolGradYear": schoolGradYear,
-                "preferences": preferences,
-                "isOnboarded": true
-            ])
+    func updateUserDetails(userId: String, name: String, githubUsername: String, schoolGradYear: String, preferences: [String], photoUrl: String?) async throws {
+        let userRef = Firestore.firestore().collection("users").document(userId)
+        var updateData: [String: Any] = [
+            "name": name,
+            "githubUsername": githubUsername,
+            "schoolGradYear": schoolGradYear,
+            "preferences": preferences,
+            "isOnboarded": true
+        ]
+        
+        if let photoUrl = photoUrl {
+            updateData["photo_url"] = photoUrl
         }
+
+        try await userRef.updateData(updateData)
+    }
+
 
     
 }

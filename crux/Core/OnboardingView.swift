@@ -1,13 +1,64 @@
 import SwiftUI
 
 import SwiftUI
+import PhotosUI
+import FirebaseStorage
+import FirebaseAppCheck
+import FirebaseAuth
+
+
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var image: UIImage?
+
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var config = PHPickerConfiguration()
+        config.filter = .images // Limit picker to images only
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true)
+
+            guard let provider = results.first?.itemProvider else { return }
+
+            if provider.canLoadObject(ofClass: UIImage.self) {
+                provider.loadObject(ofClass: UIImage.self) { image, _ in
+                    DispatchQueue.main.async {
+                        self.parent.image = image as? UIImage
+                    }
+                }
+            }
+        }
+    }
+}
+
+import SwiftUI
+import PhotosUI
 
 struct OnboardingView: View {
     @State private var name = ""
     @State private var githubUsername = ""
     @State private var schoolGradYear = ""
     @State private var preferences: [String] = []
-
+    @State private var profileImage: UIImage? = nil
+    @State private var showImagePicker = false
+    
     @Binding var showOnboarding: Bool
     let userId: String
 
@@ -17,6 +68,25 @@ struct OnboardingView: View {
                 Text("Complete Your Profile")
                     .font(.largeTitle)
                     .bold()
+
+                // Profile Image
+                if let image = profileImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            showImagePicker = true
+                        }
+                } else {
+                    Circle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 100, height: 100)
+                        .onTapGesture {
+                            showImagePicker = true
+                        }
+                }
 
                 // Name Input Field
                 TextField("Name", text: $name)
@@ -91,14 +161,19 @@ struct OnboardingView: View {
                 // Complete Onboarding Button
                 Button(action: {
                     Task {
+                        // Upload the profile picture to storage and get the URL
+                        let photoUrl = await uploadProfilePicture(profileImage)
+                        print(photoUrl)
+                        
                         do {
-                            // Update Firestore with the onboarding details
+                            // Update Firestore with the onboarding details, including photo URL
                             try await UserManager.shared.updateUserDetails(
                                 userId: userId,
                                 name: name,
                                 githubUsername: githubUsername,
                                 schoolGradYear: schoolGradYear,
-                                preferences: preferences
+                                preferences: preferences,
+                                photoUrl: photoUrl
                             )
                             showOnboarding = false // Exit onboarding and show profile
                         } catch {
@@ -119,16 +194,31 @@ struct OnboardingView: View {
                 Spacer()
             }
             .padding()
-            
-            .navigationBarItems(leading: Button(action: {
-                showOnboarding = false // Navigate back to SignInEmailView
-            }) {
-                HStack {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                }
-            })
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(image: $profileImage)
+            }
         }
     }
+
+    // Function to upload the profile picture to Firebase Storage
+    func uploadProfilePicture(_ image: UIImage?) async -> String? {
+        guard let imageData = image?.jpegData(compressionQuality: 0.8) else { return nil }
+
+        // Log the userId to ensure it's correct
+        print("Uploading profile picture for userId: \(userId)")
+
+        let storageRef = Storage.storage().reference().child("profile_pictures/\(userId).jpg")
+        do {
+            let _ = try await storageRef.putDataAsync(imageData)
+            let downloadUrl = try await storageRef.downloadURL()
+            return downloadUrl.absoluteString
+        } catch {
+            print("Failed to upload profile picture: \(error)")
+            return nil
+        }
+    }
+
 }
+
+
 

@@ -36,14 +36,15 @@ final class ProfileViewModel: ObservableObject {
 
 
 import SwiftUI
+import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
-@Binding var showSignInView: Bool
+    @Binding var showSignInView: Bool
     @State private var isShowingCreateProjectView = false // Track whether the upload project view is shown
     
     var body: some View {
-        NavigationView { // Wrap the entire view in NavigationView
+        NavigationView {
             VStack {
                 if viewModel.isLoading {
                     ProgressView("Loading user data...")
@@ -51,21 +52,53 @@ struct ProfileView: View {
                     OnboardingView(showOnboarding: $viewModel.showOnboarding, userId: viewModel.user?.userId ?? "")
                 } else {
                     List {
+                        // Display the profile picture
+                        if let user = viewModel.user {
+                            HStack {
+                                if let photoUrl = user.photoUrl, let url = URL(string: photoUrl) {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                            .clipShape(Circle())
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                } else {
+                                    Circle()
+                                        .fill(Color.gray.opacity(0.2))
+                                        .frame(width: 100, height: 100)
+                                }
+                                Text("Profile Picture")
+                                    .font(.headline)
+                                    .padding(.leading)
+                            }
+                        }
+                        
+                        // Display the user's name
                         if let user = viewModel.user {
                             Text("NAME: \(user.name)")
                         }
+                        
+                        // Display the user's graduation year
                         if let user = viewModel.user {
-                            Text("Email: \(user.schoolGradYear)")
+                            Text("School/Grad Year: \(user.schoolGradYear)")
                         }
                         
+                        // Display the user's email
                         if let user = viewModel.user {
                             Text("Email: \(user.email)")
                         }
+                        
+                        // Display the user's GitHub username
                         if let user = viewModel.user {
                             Text("Github: \(user.githubUsername ?? "Not available")")
                         }
+                        
+                        // Display the user's preferences
                         if let user = viewModel.user {
-                            Text("PREFS: \(user.preferences)")
+                            Text("PREFS: \(user.preferences.joined(separator: ", "))")
                         }
                     }
                     .refreshable {
@@ -78,14 +111,14 @@ struct ProfileView: View {
                     .navigationTitle("Profile")
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            // Change gear button to navigate to SettingsView
+                            // Settings button
                             NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
                                 Image(systemName: "gear")
                                     .font(.headline)
                             }
                         }
                         
-                        // Post Project button in toolbar
+                        // Post Project button
                         ToolbarItem(placement: .navigationBarLeading) {
                             NavigationLink(destination: CreateProjectView()) {
                                 Image(systemName: "plus")
