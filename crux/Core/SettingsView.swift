@@ -36,15 +36,17 @@ struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @Binding var showSignInView: Bool
     @Environment(\.dismiss) private var dismiss
-    
+    @ObservedObject var profileViewModel: ProfileViewModel // Accept ProfileViewModel here
+
     var body: some View {
         List {
             Button("Log out") {
                 Task {
                     do {
-                        try viewModel.signOut()
-                        showSignInView = true
-                        dismiss()
+                        try viewModel.signOut() // Sign out from Authentication
+                        try profileViewModel.signOut() // Clear ProfileViewModel data
+                        showSignInView = true // Go back to sign-in view
+                        dismiss() // Dismiss the settings view
                     } catch {
                         print(error)
                     }
@@ -52,7 +54,6 @@ struct SettingsView: View {
             }
             
             Section {
-                
                 Button("reset password") {
                     Task {
                         do {
@@ -68,7 +69,7 @@ struct SettingsView: View {
                     Task {
                         do {
                             try await viewModel.updatePassword()
-                            print("PASSWORD UPDTED")
+                            print("PASSWORD UPDATED")
                         } catch {
                             print(error)
                         }
@@ -93,13 +94,3 @@ struct SettingsView: View {
         .navigationBarTitle("Settings")
     }
 }
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SettingsView(showSignInView: .constant(false))
-        }
-    }
-}
-
-

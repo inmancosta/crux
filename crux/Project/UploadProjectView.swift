@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CreateProjectView: View {
     @StateObject private var viewModel = ProjectViewModel()
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack {
@@ -27,6 +28,7 @@ struct CreateProjectView: View {
                     do {
                         try await viewModel.uploadProject()
                         print("Project uploaded successfully")
+                        dismiss()
                     } catch {
                         print("Failed to upload project: \(error)")
                     }

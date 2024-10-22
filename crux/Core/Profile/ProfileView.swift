@@ -90,18 +90,18 @@ struct ProfileView: View {
                     .navigationTitle("Profile")
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                do {
-                                    try viewModel.signOut()
-                                    showSignInView = true // Show the sign-in view after signing out
-                                } catch {
-                                    print("Failed to sign out: \(error)")
-                                }
-                            } label: {
+                            // Navigation link to SettingsView
+                            NavigationLink(destination: SettingsView(showSignInView: $showSignInView, profileViewModel: viewModel)) {
                                 Image(systemName: "gear")
                                     .font(.headline)
                             }
                         }
+                        ToolbarItem(placement: .navigationBarLeading) {
+                                                    NavigationLink(destination: CreateProjectView()) {
+                                                        Image(systemName: "plus")
+                                                            .font(.headline)
+                                                    }
+                                                }
                     }
                 }
             }
@@ -115,7 +115,6 @@ struct ProfileView: View {
         }
     }
 }
-
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
