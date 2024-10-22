@@ -34,14 +34,11 @@ final class ProfileViewModel: ObservableObject {
         }
 }
 
-
-import SwiftUI
 import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
-    @State private var isShowingCreateProjectView = false // Track whether the upload project view is shown
     
     var body: some View {
         NavigationView {
@@ -52,8 +49,8 @@ struct ProfileView: View {
                     OnboardingView(showOnboarding: $viewModel.showOnboarding, userId: viewModel.user?.userId ?? "")
                 } else {
                     List {
-                        // Display the profile picture
                         if let user = viewModel.user {
+                            // Profile Picture Display
                             HStack {
                                 if let photoUrl = user.photoUrl, let url = URL(string: photoUrl) {
                                     AsyncImage(url: url) { image in
@@ -74,30 +71,12 @@ struct ProfileView: View {
                                     .font(.headline)
                                     .padding(.leading)
                             }
-                        }
-                        
-                        // Display the user's name
-                        if let user = viewModel.user {
+                            
+                            // Profile Information
                             Text("NAME: \(user.name)")
-                        }
-                        
-                        // Display the user's graduation year
-                        if let user = viewModel.user {
                             Text("School/Grad Year: \(user.schoolGradYear)")
-                        }
-                        
-                        // Display the user's email
-                        if let user = viewModel.user {
                             Text("Email: \(user.email)")
-                        }
-                        
-                        // Display the user's GitHub username
-                        if let user = viewModel.user {
                             Text("Github: \(user.githubUsername ?? "Not available")")
-                        }
-                        
-                        // Display the user's preferences
-                        if let user = viewModel.user {
                             Text("PREFS: \(user.preferences.joined(separator: ", "))")
                         }
                     }
@@ -111,17 +90,15 @@ struct ProfileView: View {
                     .navigationTitle("Profile")
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            // Settings button
-                            NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
+                            Button {
+                                do {
+                                    try viewModel.signOut()
+                                    showSignInView = true // Show the sign-in view after signing out
+                                } catch {
+                                    print("Failed to sign out: \(error)")
+                                }
+                            } label: {
                                 Image(systemName: "gear")
-                                    .font(.headline)
-                            }
-                        }
-                        
-                        // Post Project button
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            NavigationLink(destination: CreateProjectView()) {
-                                Image(systemName: "plus")
                                     .font(.headline)
                             }
                         }
@@ -138,6 +115,7 @@ struct ProfileView: View {
         }
     }
 }
+
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
