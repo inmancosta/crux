@@ -16,7 +16,7 @@ struct CreateProjectView: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
             
-            TextField("Difficulty Level", text: $viewModel.difficultyLevel)
+            TextField("Difficulty", text: $viewModel.difficultyLevel)
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
