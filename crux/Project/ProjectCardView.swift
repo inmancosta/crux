@@ -20,7 +20,7 @@ struct ProjectCardView: View {
             Text(project.description)
                 .font(.body)
                 .lineLimit(3)
-                .padding(.top, 5)
+                .padding(.top, 2)
             
             HStack {
                 ForEach(project.tags, id: \.self) { tag in
@@ -29,12 +29,15 @@ struct ProjectCardView: View {
                         .padding(5)
                         .background(Color.blue.opacity(0.2))
                         .cornerRadius(5)
+                        
                 }
             }
         }
         .padding()
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 5)
+        .background(Color.white)  // Card background color
+        .cornerRadius(5)
+        .shadow(radius: 3)
+        .frame(minWidth: 300, maxWidth: .infinity, minHeight: 150)  // Set fixed height for cards
     }
 }
+

@@ -34,6 +34,8 @@
 		4DF2FFCF2CC722E600C15C1A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 4DF2FFCE2CC722E600C15C1A /* FirebaseAppCheck */; };
 		4DF2FFD12CC724EA00C15C1A /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 4DF2FFD02CC724EA00C15C1A /* FirebaseAuthCombine-Community */; };
 		4DF2FFD32CC7250E00C15C1A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4DF2FFD22CC7250E00C15C1A /* FirebaseStorage */; };
+		4DF2FFD52CC8BBE200C15C1A /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFD42CC8BBE200C15C1A /* ProjectListView.swift */; };
+		4DF2FFD72CC8BC9900C15C1A /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF2FFD62CC8BC9900C15C1A /* MainTabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		4DF2FFC82CC7024000C15C1A /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		4DF2FFCA2CC702D000C15C1A /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		4DF2FFCC2CC702EC00C15C1A /* UploadProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProjectView.swift; sourceTree = "<group>"; };
+		4DF2FFD42CC8BBE200C15C1A /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
+		4DF2FFD62CC8BC9900C15C1A /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 			children = (
 				4DD35D7E2CBE16C700E89775 /* cruxApp.swift */,
 				4DD35D802CBE16C700E89775 /* ContentView.swift */,
+				4DF2FFD62CC8BC9900C15C1A /* MainTabView.swift */,
 				4DD35DA62CC0A72700E89775 /* Core */,
 				4DD35D942CBE1E4000E89775 /* Authentication */,
 				4DF2FFC52CC7014300C15C1A /* Project */,
@@ -172,6 +177,7 @@
 				4DF2FFC82CC7024000C15C1A /* ProjectManager.swift */,
 				4DF2FFCA2CC702D000C15C1A /* ProjectViewModel.swift */,
 				4DF2FFCC2CC702EC00C15C1A /* UploadProjectView.swift */,
+				4DF2FFD42CC8BBE200C15C1A /* ProjectListView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -271,11 +277,13 @@
 				4DD35D9C2CBE477100E89775 /* RootView.swift in Sources */,
 				4DF2FFCD2CC702EC00C15C1A /* UploadProjectView.swift in Sources */,
 				4DD35D962CBE1E5400E89775 /* AuthenticationView.swift in Sources */,
+				4DF2FFD72CC8BC9900C15C1A /* MainTabView.swift in Sources */,
 				4DF2FFC22CC700F600C15C1A /* ProjectCardView.swift in Sources */,
 				4DD35D9A2CBE223B00E89775 /* AuthenticationManager.swift in Sources */,
 				4DD35D982CBE1FA000E89775 /* SignInEmailView.swift in Sources */,
 				4DF2FFC42CC7011600C15C1A /* ProjectDetailView.swift in Sources */,
 				4DF2FFCB2CC702D000C15C1A /* ProjectViewModel.swift in Sources */,
+				4DF2FFD52CC8BBE200C15C1A /* ProjectListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

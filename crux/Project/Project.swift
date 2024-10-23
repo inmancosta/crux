@@ -1,8 +1,8 @@
 import Foundation
 
+import Foundation
 
-
-struct Project: Identifiable {
+struct Project: Identifiable, Codable { // Add Codable here
     var id = UUID().uuidString
     var name: String
     var description: String
@@ -10,6 +10,6 @@ struct Project: Identifiable {
     var createdBy: String
     var creatorId: String
     var skills: [String]
-    var dateCreated: Date = Date() // Set the creation date to now
+    var dateCreated: Date = Date()
     var difficultyLevel: String
 }

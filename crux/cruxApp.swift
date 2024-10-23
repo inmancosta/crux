@@ -8,8 +8,7 @@
 import SwiftUI
 import Firebase
 
-@main
-struct cruxApp: App {
+@main struct cruxApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
