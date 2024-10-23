@@ -25,9 +25,7 @@ struct CreateProjectView: View {
                 .cornerRadius(8)
                 .frame(height: 100) // Adjust to make multiline
             
-<<<<<<< Updated upstream
-            TextField("Difficulty", text: $viewModel.difficultyLevel)
-=======
+
             // Difficulty Picker
             Picker("Difficulty", selection: $viewModel.difficultyLevel) {
                 ForEach(difficultyLevels, id: \.self) {
@@ -62,7 +60,7 @@ struct CreateProjectView: View {
             
             // Skills (Simple text input for now, could later be expanded)
             TextField("Skills (comma separated)", text: $viewModel.skillsInput)
->>>>>>> Stashed changes
+
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(8)

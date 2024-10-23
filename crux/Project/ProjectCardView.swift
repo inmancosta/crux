@@ -17,7 +17,7 @@ struct ProjectCardView: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             
-            Text(project.description)
+            Text("Description: \( project.description)")
                 .font(.body)
                 .lineLimit(3)
                 .padding(.top, 2)
