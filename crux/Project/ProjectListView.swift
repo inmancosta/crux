@@ -5,23 +5,72 @@ struct ProjectListView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {  // Use ScrollView instead of List for more control over the background
-                VStack(spacing: 0) {
-                    ForEach(viewModel.projects) { project in
-                        Button(action: {
-                            // Navigation action when card is tapped
-                        }) {
-                            NavigationLink(destination: ProjectDetailView(project: project)) {
-                                                        ProjectCardView(project: project)
-                                                    }
+            ScrollView {
+                
+                Text("Projects")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    //.padding(.leading)
+                                    //.padding(.top)
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    
+                    
+                    // Web Dev Section
+                    Text("Web Development")
+                        .font(.headline)
+                        .padding(.leading)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(viewModel.projects.filter { $0.tags.contains("Web Dev") }) { project in
+                                NavigationLink(destination: ProjectDetailView(project: project)) {
+                                    ProjectCardView(project: project)
+                                        .frame(width: 200) // Adjust card width as needed
+                                }
+                            }
                         }
-                        .buttonStyle(PlainButtonStyle()) // Remove any button styling (like arrows)
+                        .padding(.horizontal)
+                    }
+
+                    // App Dev Section
+                    Text("App Development")
+                        .font(.headline)
+                        .padding(.leading)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(viewModel.projects.filter { $0.tags.contains("App Dev") }) { project in
+                                NavigationLink(destination: ProjectDetailView(project: project)) {
+                                    ProjectCardView(project: project)
+                                        .frame(width: 200) // Adjust card width as needed
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+
+                    // AI Section
+                    Text("AI")
+                        .font(.headline)
+                        .padding(.leading)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(viewModel.projects.filter { $0.tags.contains("AI") }) { project in
+                                NavigationLink(destination: ProjectDetailView(project: project)) {
+                                    ProjectCardView(project: project)
+                                        .frame(width: 200) // Adjust card width as needed
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
                     }
                 }
-                .padding()
+                .padding(.vertical)
             }
-            .background(Color(.systemGray6)) // Set your desired background color
-            .navigationTitle("Projects")
+            .background(Color(.systemGray6))
+            //.navigationTitle("Projects")
             .onAppear {
                 Task {
                     do {
