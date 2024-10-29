@@ -36,4 +36,14 @@ final class ProjectManager {
         
         return projects
     }
+    
+    // Fetch recommended projects based on user preferences
+        func fetchRecommendedProjects(userPreferences: [String]) async throws -> [Project] {
+            let allProjects = try await fetchProjects() // Fetch all projects
+            let recommendedProjects = allProjects.filter { project in
+                // Check if any tag in the project matches a user preference
+                !Set(project.tags).intersection(Set(userPreferences)).isEmpty
+            }
+            return recommendedProjects
+        }
 }
