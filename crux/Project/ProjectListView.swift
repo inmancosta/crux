@@ -77,6 +77,13 @@ struct ProjectListView: View {
                 }
             }
         }
+        .refreshable {
+                    do {
+                        try await viewModel.loadUserAndProjects() // Refresh data on pull down
+                    } catch {
+                        print("Failed to refresh projects: \(error)")
+                    }
+                }
         .background(Color(.systemGray6))
     }
 
