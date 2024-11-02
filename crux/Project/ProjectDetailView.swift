@@ -6,6 +6,20 @@ struct ProjectDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
+                
+                Button(action: {
+                    Task {
+                        try await ProjectManager.shared.requestToJoinProject(projectId: project.id)
+                    }
+                }) {
+                    Text("Request to Join Project")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .padding()
+                        .background(Color(.systemGray5))
+                        .cornerRadius(10)
+                }
+
                 Text(project.name)
                     .font(.largeTitle)
                     .bold()

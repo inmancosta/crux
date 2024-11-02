@@ -17,14 +17,30 @@ final class ProjectManager {
             "creatorId": userId,
             "skills": project.skills,
             "dateCreated": Timestamp(),
-            "difficultyLevel": project.difficultyLevel
+            "difficultyLevel": project.difficultyLevel,
+            "joinRequests": []  // Initialize as an empty array
         ]
+
         
         try await Firestore.firestore()
             .collection("projects")
             .document(project.id)
             .setData(projectData)
     }
+    
+    func requestToJoinProject(projectId: String) async throws {
+        guard let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid else {
+            print("User not authenticated")
+            return
+        }
+
+        let projectRef = Firestore.firestore().collection("projects").document(projectId)
+        
+        try await projectRef.updateData([
+            "joinRequests": FieldValue.arrayUnion([userId])
+        ])
+    }
+
 
     // Fetch all projects from Firestore
     func fetchProjects() async throws -> [Project] {
@@ -46,4 +62,78 @@ final class ProjectManager {
             }
             return recommendedProjects
         }
+    
+    // Fetch requesters' details based on user IDs in the join requests
+        func fetchRequesters(for projectId: String) async throws -> [(userId: String, name: String)] {
+            let projectDoc = try await Firestore.firestore().collection("projects").document(projectId).getDocument()
+            
+            guard let projectData = projectDoc.data(),
+                  let joinRequests = projectData["joinRequests"] as? [String] else {
+                return []
+            }
+            
+            var requesters: [(userId: String, name: String)] = []
+            
+            for userId in joinRequests {
+                let userDoc = try await Firestore.firestore().collection("users").document(userId).getDocument()
+                
+                if let userData = userDoc.data(),
+                   let name = userData["name"] as? String {
+                    requesters.append((userId: userId, name: name))
+                }
+            }
+            
+            return requesters
+        }
+        
+        // Accept a join request by moving the user from joinRequests to project members
+    func acceptJoinRequest(projectId: String, userId: String) async throws {
+        let projectRef = Firestore.firestore().collection("projects").document(projectId)
+        
+        try await Firestore.firestore().runTransaction { (transaction, errorPointer) -> Any? in
+            do {
+                // Fetch the project document within the transaction
+                let projectDoc = try transaction.getDocument(projectRef)
+                
+                var joinRequests = projectDoc.data()?["joinRequests"] as? [String] ?? []
+                var members = projectDoc.data()?["members"] as? [String] ?? []
+                
+                // Remove the user ID from joinRequests and add it to members
+                joinRequests.removeAll { $0 == userId }
+                members.append(userId)
+                
+                // Update the transaction with the modified joinRequests and members
+                transaction.updateData(["joinRequests": joinRequests, "members": members], forDocument: projectRef)
+            } catch {
+                // If an error occurs, set it to the NSErrorPointer to indicate transaction failure
+                errorPointer?.pointee = error as NSError
+                return nil
+            }
+            
+            return nil
+        }
+    }
+
+        
+        // Decline a join request by removing the user from joinRequests
+        func declineJoinRequest(projectId: String, userId: String) async throws {
+            let projectRef = Firestore.firestore().collection("projects").document(projectId)
+            
+            try await projectRef.updateData([
+                "joinRequests": FieldValue.arrayRemove([userId])
+            ])
+        }
+}
+
+extension ProjectManager {
+    func fetchProjectsCreatedByUser(userId: String) async throws -> [Project] {
+        let snapshot = try await Firestore.firestore()
+            .collection("projects")
+            .whereField("creatorId", isEqualTo: userId)
+            .getDocuments()
+        
+        return snapshot.documents.compactMap { document in
+            try? document.data(as: Project.self)
+        }
+    }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D2415E72CD6E3B400D175B8 /* ProjectOwnerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2415E62CD6E3B400D175B8 /* ProjectOwnerViewModel.swift */; };
+		4D2415EB2CD6E8AB00D175B8 /* OwnerRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2415EA2CD6E8AB00D175B8 /* OwnerRequestView.swift */; };
 		4DD35D7F2CBE16C700E89775 /* cruxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35D7E2CBE16C700E89775 /* cruxApp.swift */; };
 		4DD35D812CBE16C700E89775 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35D802CBE16C700E89775 /* ContentView.swift */; };
 		4DD35D832CBE16C800E89775 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DD35D822CBE16C800E89775 /* Assets.xcassets */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D2415E62CD6E3B400D175B8 /* ProjectOwnerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOwnerViewModel.swift; sourceTree = "<group>"; };
+		4D2415EA2CD6E8AB00D175B8 /* OwnerRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerRequestView.swift; sourceTree = "<group>"; };
 		4DD35D7B2CBE16C700E89775 /* crux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DD35D7E2CBE16C700E89775 /* cruxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cruxApp.swift; sourceTree = "<group>"; };
 		4DD35D802CBE16C700E89775 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -176,8 +180,10 @@
 				4DF2FFC62CC7015400C15C1A /* Project.swift */,
 				4DF2FFC82CC7024000C15C1A /* ProjectManager.swift */,
 				4DF2FFCA2CC702D000C15C1A /* ProjectViewModel.swift */,
+				4D2415E62CD6E3B400D175B8 /* ProjectOwnerViewModel.swift */,
 				4DF2FFCC2CC702EC00C15C1A /* UploadProjectView.swift */,
 				4DF2FFD42CC8BBE200C15C1A /* ProjectListView.swift */,
+				4D2415EA2CD6E8AB00D175B8 /* OwnerRequestView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -267,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD35DAC2CC0AE9E00E89775 /* UserManager.swift in Sources */,
+				4D2415E72CD6E3B400D175B8 /* ProjectOwnerViewModel.swift in Sources */,
 				4DD35DA92CC0A7D900E89775 /* ProfileView.swift in Sources */,
 				4DD35D9E2CBE4AFB00E89775 /* SettingsView.swift in Sources */,
 				4DD35DAE2CC0BF0E00E89775 /* OnboardingView.swift in Sources */,
@@ -281,6 +288,7 @@
 				4DF2FFC22CC700F600C15C1A /* ProjectCardView.swift in Sources */,
 				4DD35D9A2CBE223B00E89775 /* AuthenticationManager.swift in Sources */,
 				4DD35D982CBE1FA000E89775 /* SignInEmailView.swift in Sources */,
+				4D2415EB2CD6E8AB00D175B8 /* OwnerRequestView.swift in Sources */,
 				4DF2FFC42CC7011600C15C1A /* ProjectDetailView.swift in Sources */,
 				4DF2FFCB2CC702D000C15C1A /* ProjectViewModel.swift in Sources */,
 				4DF2FFD52CC8BBE200C15C1A /* ProjectListView.swift in Sources */,

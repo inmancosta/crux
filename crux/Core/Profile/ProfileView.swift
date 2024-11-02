@@ -78,7 +78,9 @@ struct ProfileView: View {
                             Text("Email: \(user.email)")
                             Text("Github: \(user.githubUsername ?? "Not available")")
                             Text("PREFS: \(user.preferences.joined(separator: ", "))")
+                            
                         }
+                        OwnerRequestsView()
                     }
                     .refreshable {
                         do {
