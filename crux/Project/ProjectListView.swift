@@ -2,6 +2,8 @@ import SwiftUI
 
 import SwiftUI
 
+import SwiftUI
+
 @MainActor
 final class ProjectListViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
@@ -36,24 +38,26 @@ struct ProjectListView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // Main Title
                 Text("Projects")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .font(.system(size: 34, weight: .bold, design: .monospaced))
                     .padding(.leading)
                     .padding(.top)
 
                 // Recommended Projects Section
                 if !viewModel.recommendedProjects.isEmpty {
                     Text("Recommended for You")
-                        .font(.headline)
-                        .padding(.leading, 8)
+                        .font(.system(size: 20, weight: .semibold, design: .monospaced))
+                        .padding(.leading, 16)
 
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 20) { // Adjusted spacing to prevent overlap
+                        HStack(spacing: 16) { // Adjusted spacing to prevent overlap
                             ForEach(viewModel.recommendedProjects) { project in
                                 NavigationLink(destination: ProjectDetailView(project: project)) {
                                     ProjectCardView(project: project)
-                                        .frame(width: 180) // Adjusted width for spacing
-                                        .padding(.vertical, 10) // Optional padding to balance card layout
+                                        .frame(width: 180, height: 220) // Set fixed height for consistency
+                                        .background(Color.white)
+                                        .cornerRadius(10)
+                                        .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 4)
+                                        .padding(.vertical, 10)
                                 }
                             }
                         }
@@ -78,12 +82,12 @@ struct ProjectListView: View {
             }
         }
         .refreshable {
-                    do {
-                        try await viewModel.loadUserAndProjects() // Refresh data on pull down
-                    } catch {
-                        print("Failed to refresh projects: \(error)")
-                    }
-                }
+            do {
+                try await viewModel.loadUserAndProjects() // Refresh data on pull down
+            } catch {
+                print("Failed to refresh projects: \(error)")
+            }
+        }
         .background(Color(.systemGray6))
     }
 
@@ -91,16 +95,19 @@ struct ProjectListView: View {
     private func sectionWithTitle(title: String, filterTag: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
-                .font(.headline)
-                .padding(.leading, 8)
+                .font(.system(size: 20, weight: .semibold, design: .monospaced))
+                .padding(.leading, 16)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) { // Consistent spacing to prevent overlap
+                HStack(spacing: 16) { // Consistent spacing to prevent overlap
                     ForEach(viewModel.allProjects.filter { $0.tags.contains(filterTag) }) { project in
                         NavigationLink(destination: ProjectDetailView(project: project)) {
                             ProjectCardView(project: project)
-                                .frame(width: 180) // Adjusted width to ensure adequate spacing
-                                .padding(.vertical, 10) // Optional vertical padding for balanced layout
+                                .frame(width: 180, height: 220) // Set fixed height for consistency
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 4)
+                                .padding(.vertical, 10)
                         }
                     }
                 }

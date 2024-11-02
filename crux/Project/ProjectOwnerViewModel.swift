@@ -12,6 +12,18 @@ final class ProjectOwnerViewModel: ObservableObject {
     
     @Published var projectRequests: [ProjectRequest] = []
     
+    // Default initializer
+    init() {
+        Task {
+            await loadAllRequests()
+        }
+    }
+    
+    // Initializer for injecting sample data
+    init(sampleData: [ProjectRequest]) {
+        self.projectRequests = sampleData
+    }
+    
     // Load all join requests for the owner’s projects
     func loadAllRequests() async {
         do {
