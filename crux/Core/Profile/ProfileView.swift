@@ -3,6 +3,7 @@ import SwiftUI
 @MainActor
 final class ProfileViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
+    @Published var joinRequests: [ProjectOwnerViewModel.ProjectRequest] = []
     @Published var showOnboarding = false // Track whether to show onboarding
     @Published var isLoading = false // Track loading state
 
@@ -23,6 +24,29 @@ final class ProfileViewModel: ObservableObject {
         if let user = self.user, !user.isOnboarded {
             self.showOnboarding = true // Show onboarding view if user is not onboarded
         }
+        
+        // Load join requests for user's projects
+        if let user = self.user {
+            try await loadJoinRequests(for: user)
+        }
+    }
+    
+    private func loadJoinRequests(for user: DBUser) async throws {
+        // Fetch projects created by the user and load join requests
+        let projects = try await ProjectManager.shared.fetchProjectsCreatedByUser(userId: user.userId)
+        
+        var allRequests: [ProjectOwnerViewModel.ProjectRequest] = []
+        
+        for project in projects {
+            let requesters = try await ProjectManager.shared.fetchRequesters(for: project.id)
+            allRequests.append(ProjectOwnerViewModel.ProjectRequest(
+                projectId: project.id,
+                projectName: project.name,
+                requesters: requesters
+            ))
+        }
+        
+        self.joinRequests = allRequests
     }
     
     func signOut() throws {
@@ -30,6 +54,8 @@ final class ProfileViewModel: ObservableObject {
         self.user = nil // Clear user data on sign-out
     }
 }
+
+import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
@@ -47,7 +73,7 @@ struct ProfileView: View {
                         if let user = viewModel.user {
                             profilePictureSection(for: user)
                             profileInformationSection(for: user)
-                            sampleRequestsSection()
+                            joinRequestsSection(viewModel: viewModel)  // Pass viewModel to joinRequestsSection
                         }
                     }
                     .refreshable {
@@ -129,71 +155,17 @@ struct ProfileView: View {
         .padding(.vertical)
     }
 
-    // Sample Requests Section
-    private func sampleRequestsSection() -> some View {
+    // Join Requests Section with Correct ViewModel Passing
+    private func joinRequestsSection(viewModel: ProfileViewModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Join Requests")
-                .font(.system(size: 18, weight: .bold, design: .monospaced))
-                .padding(.bottom, 4)
+//            Text("Join Requests")
+//                .font(.system(size: 18, weight: .bold, design: .monospaced))
+//                .padding(.bottom, 4)
             
-            // Example requests
-            ForEach(sampleRequests, id: \.self) { request in
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Requester: \(request.requesterName)")
-                        .font(.system(size: 14, weight: .regular, design: .monospaced))
-                    Text("Requested Project: \(request.projectName)")
-                        .font(.system(size: 14, weight: .regular, design: .monospaced))
-                    HStack {
-                        Button(action: {
-                            // Accept request action
-                        }) {
-                            Text("Accept")
-                                .font(.system(size: 12, design: .monospaced))
-                                .padding(5)
-                                .background(Color.green.opacity(0.2))
-                                .foregroundColor(.green)
-                                .cornerRadius(5)
-                        }
-                        Button(action: {
-                            // Decline request action
-                        }) {
-                            Text("Decline")
-                                .font(.system(size: 12, design: .monospaced))
-                                .padding(5)
-                                .background(Color.red.opacity(0.2))
-                                .foregroundColor(.red)
-                                .cornerRadius(5)
-                        }
-                    }
-                }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(8)
-                .shadow(color: .gray.opacity(0.2), radius: 3, x: 0, y: 2)
-                .padding(.vertical, 4)
+            ForEach(viewModel.joinRequests, id: \.projectId) { projectRequest in
+                OwnerRequestsView()
             }
         }
         .padding(.vertical)
-    }
-    
-    // Sample Data for Requests
-    private var sampleRequests: [SampleRequest] {
-        [
-            SampleRequest(requesterName: "Jane Doe", projectName: "AI Research"),
-            SampleRequest(requesterName: "John Smith", projectName: "Web Development"),
-            SampleRequest(requesterName: "Emily Johnson", projectName: "Machine Learning")
-        ]
-    }
-}
-
-// Sample Request Structure for Testing
-struct SampleRequest: Hashable {
-    let requesterName: String
-    let projectName: String
-}
-
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView(showSignInView: .constant(false))
     }
 }

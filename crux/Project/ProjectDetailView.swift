@@ -56,6 +56,7 @@ struct ProjectDetailView: View {
                     .font(.system(size: 18, weight: .semibold, design: .monospaced))
                     .padding(.top, 10)
                 
+               
                 // Skill Tags
                 HStack {
                     ForEach(project.skills, id: \.self) { skill in
