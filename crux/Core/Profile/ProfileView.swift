@@ -158,13 +158,7 @@ struct ProfileView: View {
     // Join Requests Section with Correct ViewModel Passing
     private func joinRequestsSection(viewModel: ProfileViewModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-//            Text("Join Requests")
-//                .font(.system(size: 18, weight: .bold, design: .monospaced))
-//                .padding(.bottom, 4)
-            
-            ForEach(viewModel.joinRequests, id: \.projectId) { projectRequest in
-                OwnerRequestsView()
-            }
+            OwnerRequestsView(requests: viewModel.joinRequests)
         }
         .padding(.vertical)
     }
