@@ -45,8 +45,11 @@ struct SettingsView: View {
                     do {
                         try viewModel.signOut() // Sign out from Authentication
                         try profileViewModel.signOut() // Clear ProfileViewModel data
-                        showSignInView = true // Go back to sign-in view
-                        dismiss() // Dismiss the settings view
+                        DispatchQueue.main.async {
+                                                    showSignInView = true
+                                                     // Dismiss the settings view safely
+                                                }
+                        dismiss()
                     } catch {
                         print(error)
                     }

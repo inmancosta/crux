@@ -7,10 +7,11 @@ struct RootView: View {
         ZStack {
             if !showSignInView {
                 // Show the MainTabView when the user is authenticated
-                MainTabView()
+                MainTabView(showSignInView: $showSignInView)
             }
         }
         .onAppear {
+            // Check authentication status on appearance
             let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
             self.showSignInView = authUser == nil // Show sign-in if user is not authenticated
         }
@@ -22,6 +23,7 @@ struct RootView: View {
         }
     }
 }
+
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {

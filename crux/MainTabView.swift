@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State private var showSignInView = false // State to track if the sign-in view should show
-    
+    @Binding var showSignInView: Bool // Bind showSignInView
+
     var body: some View {
         TabView {
             // Profile View Tab
@@ -24,8 +24,8 @@ struct MainTabView: View {
     }
 }
 
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()
-    }
-}
+//struct MainTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainTabView()
+//    }
+//}
