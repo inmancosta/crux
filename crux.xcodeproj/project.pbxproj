@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D2415E72CD6E3B400D175B8 /* ProjectOwnerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2415E62CD6E3B400D175B8 /* ProjectOwnerViewModel.swift */; };
 		4D2415EB2CD6E8AB00D175B8 /* OwnerRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2415EA2CD6E8AB00D175B8 /* OwnerRequestView.swift */; };
+		4DB77B512CD74DA50084C6A5 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB77B502CD74DA50084C6A5 /* UserProfileView.swift */; };
 		4DD35D7F2CBE16C700E89775 /* cruxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35D7E2CBE16C700E89775 /* cruxApp.swift */; };
 		4DD35D812CBE16C700E89775 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD35D802CBE16C700E89775 /* ContentView.swift */; };
 		4DD35D832CBE16C800E89775 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DD35D822CBE16C800E89775 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		4D2415E62CD6E3B400D175B8 /* ProjectOwnerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOwnerViewModel.swift; sourceTree = "<group>"; };
 		4D2415EA2CD6E8AB00D175B8 /* OwnerRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerRequestView.swift; sourceTree = "<group>"; };
+		4DB77B502CD74DA50084C6A5 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4DD35D7B2CBE16C700E89775 /* crux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DD35D7E2CBE16C700E89775 /* cruxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cruxApp.swift; sourceTree = "<group>"; };
 		4DD35D802CBE16C700E89775 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				4DD35DA72CC0A7C800E89775 /* Profile */,
 				4DD35D9B2CBE477100E89775 /* RootView.swift */,
 				4DD35D9D2CBE4AFB00E89775 /* SettingsView.swift */,
+				4DB77B502CD74DA50084C6A5 /* UserProfileView.swift */,
 				4DD35D952CBE1E5400E89775 /* AuthenticationView.swift */,
 				4DD35D972CBE1FA000E89775 /* SignInEmailView.swift */,
 				4DD35DAD2CC0BF0E00E89775 /* OnboardingView.swift */,
@@ -279,6 +282,7 @@
 				4DD35DAE2CC0BF0E00E89775 /* OnboardingView.swift in Sources */,
 				4DD35D812CBE16C700E89775 /* ContentView.swift in Sources */,
 				4DF2FFC92CC7024000C15C1A /* ProjectManager.swift in Sources */,
+				4DB77B512CD74DA50084C6A5 /* UserProfileView.swift in Sources */,
 				4DF2FFC72CC7015400C15C1A /* Project.swift in Sources */,
 				4DD35D7F2CBE16C700E89775 /* cruxApp.swift in Sources */,
 				4DD35D9C2CBE477100E89775 /* RootView.swift in Sources */,
